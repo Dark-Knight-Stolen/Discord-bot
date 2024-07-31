@@ -96,7 +96,7 @@ async def calculate(ctx, *, expression: str):
         # Handle any errors that occur during evaluation
         await ctx.send(f"Error in calculation: {e}")
 
-@client.command(name='avatar')
+@client.command(name='avatar')# You need to ping the person of which you want to get the avatar
 async def avatar(ctx, member: discord.Member):
     # Get the member's avatar URL
     avatar_url = member.avatar.url
@@ -219,7 +219,7 @@ async def quote(ctx):
 
 
 
-@client.command(name='userinfo')
+@client.command(name='userinfo')# You need to ping the person you want to get info about
 async def userinfo(ctx, member: discord.Member = None):
     member = member or ctx.author
     roles = [role.name for role in member.roles if role.name != '@everyone']
