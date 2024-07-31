@@ -1,3 +1,4 @@
+pip uninstall discord.py
 pip install discord.py-self 
 pip install ipaddress
 pip install aiohttp
