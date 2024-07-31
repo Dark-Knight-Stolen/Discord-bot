@@ -1,5 +1,5 @@
-It's a simple discord bot I made in my free time. Enjoy!
-You need to install the libraries used in the bot before running it. To do so run "pip install (and the name of the library)"
-
-If you want to use it as a selfbot you'll need to install discord.py-self not discord.py or it won't work. 
-If you have discord.py already installed uninstall it with pip uninstall discord.py. I'm not responsible for any misuse of this project against discord Tos
+It's a simple selfbot I made. To execute it do:
+1) Run selfbot_configuration.bat
+2) Replace the keywords inside Bot.py with your actual info
+3) Run Bot.py
+Note that using a selfbot it's against Discord TOS and I'm not responsible for any misuse
