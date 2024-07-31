@@ -1,0 +1,14 @@
+pip install discord.py-self 
+pip install ipaddress
+pip install aiohttp
+pip install asyncio
+pip install requests
+pip install BeautifulSoup
+pip install init
+pip install Fore
+pip install Style
+pip install tqdm
+pip install pyfiglet
+pip install proxycheck
+pip install Image
+pip install pillow
