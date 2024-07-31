@@ -21,7 +21,7 @@ BOT_TOKEN = "Bot_token_here"
 CHANNEL_ID = "channel_id_here(Remove the quotes or it won't work)"
 
 
-client = commands.Bot(command_prefix="!") #If you want to use it for yourself only wirte also self_bot = True and in BOT_TOKEN put your account token. It's against discord Tos and I'm not responsible
+client = commands.Bot(command_prefix="!") #If you want to use it for yourself only write also self_bot = True in the brackets. Then in BOT_TOKEN put your account token. It's against discord Tos and I'm not responsible
 # for any violation of those
 client.remove_command('help')
 last_deleted_message = None
