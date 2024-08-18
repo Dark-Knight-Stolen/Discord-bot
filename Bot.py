@@ -21,8 +21,7 @@ BOT_TOKEN = "Bot_token_here"
 CHANNEL_ID = "channel_id_here(Remove the quotes or it won't work)"
 
 
-client = commands.Bot(command_prefix="!") #If you want to use it for yourself only write also self_bot = True in the brackets. Then in BOT_TOKEN put your account token. It's against discord Tos and I'm not responsible
-# for any violation of those
+client = commands.Bot(command_prefix="!", self_bot= True) #Using it as a selfbot is against discord ToS and I'm not responsible for any misuse
 client.remove_command('help')
 last_deleted_message = None
 
@@ -39,7 +38,10 @@ custom_commands = [
     'userinfo',
     'vpn.checker',
     'calculate',
-    'avatar'
+    'avatar',
+    'time_tracker',
+    'check_elapsed_time',
+    'global_esnipe'
 ]
 
 # Custom help command
@@ -227,4 +229,57 @@ async def userinfo(ctx, member: discord.Member = None):
     joined_at = member.joined_at.strftime("%Y-%m-%d %H:%M:%S")
     created_at = member.created_at.strftime("%Y-%m-%d %H:%M:%S")
     await ctx.send(f"```\nUsername: {member}\nID: {member.id}\nJoined Server: {joined_at}\nAccount Created: {created_at}\nRoles: {roles_str}\n```")
+
+start_time = None
+
+@client.command(name='time_tracker')
+async def time_tracker(ctx):
+        global start_time
+        start_time = datetime.datetime.now()
+        await ctx.send("Time tracker started. Type 'stop' to stop the timer.")
+        
+        def check(msg):
+            return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.lower() == 'stop'
+        def time(msg):
+            return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.lower() == 'time'
+        
+        await client.wait_for('message', check=check)
+        end_time = datetime.datetime.now()
+        elapsed_time = end_time - start_time
+        await ctx.send(f"Time tracker stopped. Elapsed time: {elapsed_time}")
+
+@client.command(name='check_elapsed_time')
+async def check_elapsed_time(ctx):
+        global start_time
+        if start_time is None:
+            await ctx.send("Time tracker has not been started yet.")
+            return
+        
+        current_time = datetime.datetime.now()
+        elapsed_time = current_time - start_time
+        await ctx.send(f"Elapsed time: {elapsed_time}")
+
+        
+@client.event
+async def on_message_edit(before, after):
+    global last_edited_message
+    last_edited_message = (before.content, after.content, before.author)
+    with open('modified_messages.txt', 'a') as f:
+        f.write(f"{before.author}: {before.content}, {after.content}\n")
+        
+
+
+
+@client.command(name="global_esnipe")
+async def global_esnipe(ctx, lines : int):
+    with open('modified_messages.txt', 'r') as f:
+        lines_list = f.readlines()
+        if lines > len(lines_list):
+            
+            await ctx.send(f"There are only {len(lines_list)} messages in the modified_messages.txt file.")
+        else:
+            messages = '\n'.join(lines_list[-lines:])
+            await ctx.send(f"```toml\n{messages}\n```")
+            with open('modified_messages.txt', 'w') as f:
+                f.write(f"{messages}\n")
 client.run(BOT_TOKEN)
